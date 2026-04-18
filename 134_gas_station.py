@@ -1,28 +1,29 @@
 # greedy solution O(n) time O(1) space. Calculating total in loop prevents additional summation (minimal performance gain)
 # Current gas is calculated at each step, if at any point it dips below zero, we know we cannot start from the previously
 # > 0 solution
+class Solution(object):
+    def canCompleteCircuit(self, gas, cost):
+        total = 0
+        current_gas = 0
+        start = 0
 
-def canCompleteCircuit(gas, cost):
-    total = 0
-    current_gas = 0
-    start = 0
+        for i in range(len(gas)):
+            total += (gas[i] - cost[i])
+            current_gas += gas[i] - cost[i]
 
-    for i in range(len(gas)):
-        total += (gas[i] - cost[i])
-        current_gas += gas[i] - cost[i]
+            if current_gas < 0:
+                current_gas = 0
+                start = i + 1
+        
+        if total < 0:
+            return -1
+        
+        return start
 
-        if current_gas < 0:
-            current_gas = 0
-            start = i + 1
-    
-    if total < 0:
-        return -1
-    
-    return start
-
-print(canCompleteCircuit([1,2,3,4,5], [3,4,5,1,2]))
-print(canCompleteCircuit([2,3,4], [3,4,3]))
-print(canCompleteCircuit([5,8,2,8], [6,5,6,6]))
+s = Solution()
+print(s.canCompleteCircuit([1,2,3,4,5], [3,4,5,1,2]))
+print(s.canCompleteCircuit([2,3,4], [3,4,3]))
+print(s.canCompleteCircuit([5,8,2,8], [6,5,6,6]))
 
 # Previous brute force over engineered solution. Similar implementation to above, but relies on multiple iterations
 # over a diff array, which is not necessary. The key difference is the understanding that if the current index cannot
