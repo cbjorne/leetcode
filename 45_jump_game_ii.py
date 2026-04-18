@@ -16,6 +16,6 @@ class Solution(object):
 
         return jumps
 
-s = Solution(object)
+s = Solution()
 print(s.jump([2,3,1,1,4]))
 print(s.jump([2,3,0,1,4]))
